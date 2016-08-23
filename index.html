@@ -387,6 +387,12 @@ html, body {
             [].slice.call( all ).forEach(function(el) {
                 hljs.highlightBlock( el );
             });
+            
+            var jsToCall = document.querySelectorAll('.js-executable');
+            [].slice.call( jsToCall ).forEach(function(el){
+               var js = el.innerHTML;
+               eval('(function(){'+ js + '})()');
+            });
         }
 
         getJSON().then(function(data) {

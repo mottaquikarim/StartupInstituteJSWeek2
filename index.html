@@ -396,18 +396,15 @@ html, body {
         }
         
         function externalLinks() {
-            Array.from(document.querySelectorAll('.js-content'))
-                .forEach(function(item) {
-                    item.addEventListener('click', (e) => {
-                        if ( e.target.nodeName.toLowerCase() !== 'a' ) return;
-                        
-                        const href = e.target.getAttribute('href');
-                        if ( href.split('#').length > 2 ) {
-                            e.preventDefault();
-                            window.open(href);
-                        }
-                    });
-                });
+            document.querySelector('.js-content').addEventListener('click', (e) => {
+                if ( e.target.nodeName.toLowerCase() !== 'a' ) return;
+                
+                const href = e.target.getAttribute('href');
+                if ( href.charAt(0) !== '#' && href.indexOf(location.origin) === -1 ) {
+                    e.preventDefault();
+                    window.open(href);
+                }
+            });
         }
 
         getJSON().then(function(data) {
